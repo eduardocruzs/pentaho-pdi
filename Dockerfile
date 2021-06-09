@@ -16,21 +16,19 @@ RUN . /etc/environment
 ENV JAVA_HOME /usr/local/openjdk-8/
 ENV PENTAHO_JAVA_HOME /usr/local/openjdk-8/
 
-# Volume para acessar arquivos a serem executados e gerar logs
-RUN mkdir /input/ /output/
-VOLUME /input/ /output
-
-RUN echo 'alias k="/opt/pentaho/data-integration/kitchen.sh"\nalias p="/opt/pentaho/data-integration/pan.sh"\nalias c="/opt/pentaho/data-integration/carte.sh"' >> /etc/bash.bashrc
-
 # Criando diretorio
-RUN mkdir ${PENTAHO_HOME}; useradd -s /bin/bash -d ${PENTAHO_HOME} pentaho; chown pentaho:pentaho ${PENTAHO_HOME}
+RUN mkdir ${PENTAHO_HOME} /input/ /output/; useradd -s /bin/bash -d ${PENTAHO_HOME} pentaho; chown pentaho:pentaho ${PENTAHO_HOME} /input/ /output/
 
-USER pentaho
-# Copiando pentaho
+# Download Pentaho
 RUN wget --progress=dot:giga https://sourceforge.net/projects/pentaho/files/Pentaho%208.0/client-tools/pdi-ce-8.0.0.0-28.zip/download  -O /tmp/pentaho-pdi.zip
 
 RUN /usr/bin/unzip -q /tmp/pentaho-pdi.zip -d  $PENTAHO_HOME; \
     rm -f /tmp/pentaho-pdi.zip
+
+# Volume para acessar arquivos a serem executados e gerar logs
+VOLUME /input/ /output
+
+RUN echo 'alias k="/opt/pentaho/data-integration/kitchen.sh"\nalias p="/opt/pentaho/data-integration/pan.sh"\nalias c="/opt/pentaho/data-integration/carte.sh"' >> /etc/bash.bashrc
 
 WORKDIR ${PENTAHO_HOME}/data-integration/ 
 
@@ -38,6 +36,7 @@ WORKDIR ${PENTAHO_HOME}/data-integration/
 RUN chown -R pentaho:pentaho $PENTAHO_HOME/data-integration/; \
     chmod +x kitchen.sh spoon.sh pan.sh carte.sh
 
+USER pentaho
 
 #ENTRYPOINT ["/opt/pentaho/data-integration/kitchen.sh"]
 ENTRYPOINT ["/bin/bash"]
