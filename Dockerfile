@@ -20,7 +20,7 @@ ENV PENTAHO_JAVA_HOME /usr/local/openjdk-8/
 RUN mkdir ${PENTAHO_HOME} /input/ /output/; useradd -s /bin/bash -d ${PENTAHO_HOME} pentaho; chown pentaho:pentaho ${PENTAHO_HOME} /input/ /output/
 
 # Download Pentaho
-RUN wget --progress=dot:giga https://sourceforge.net/projects/pentaho/files/Pentaho%208.0/client-tools/pdi-ce-8.0.0.0-28.zip/download  -O /tmp/pentaho-pdi.zip
+RUN wget --progress=dot:giga https://sourceforge.net/projects/pentaho/files/Pentaho%209.1/client-tools/pdi-ce-9.1.0.0-324.zip/download -O /tmp/pentaho-pdi.zip
 
 RUN /usr/bin/unzip -q /tmp/pentaho-pdi.zip -d  $PENTAHO_HOME; \
     rm -f /tmp/pentaho-pdi.zip
@@ -38,5 +38,8 @@ RUN chown -R pentaho:pentaho $PENTAHO_HOME/data-integration/; \
 
 USER pentaho
 
+# Pode ser utilizado como ENTRYPOINT os executaveis específicos para que na execução sejam passados apenas os parametros. 
+# Deixei padrão o bash, pois pode chamar o kitchen, pan ou outro caso seja necessário. 
 #ENTRYPOINT ["/opt/pentaho/data-integration/kitchen.sh"]
+#ENTRYPOINT ["/opt/pentaho/data-integration/pan.sh"]
 ENTRYPOINT ["/bin/bash"]
