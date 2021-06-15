@@ -39,7 +39,7 @@ RUN chown -R pentaho:pentaho $PENTAHO_HOME/data-integration/; \
 USER pentaho
 
 # Pode ser utilizado como ENTRYPOINT os executaveis específicos para que na execução sejam passados apenas os parametros. 
-# Deixei padrão o bash, pois pode chamar o kitchen, pan ou outro caso seja necessário. 
+# Deixei padrão o bash, pois pode chamar o kitchen, pan ou outro, caso seja necessário. 
 #ENTRYPOINT ["/opt/pentaho/data-integration/kitchen.sh"]
 #ENTRYPOINT ["/opt/pentaho/data-integration/pan.sh"]
 ENTRYPOINT ["/bin/bash"]
