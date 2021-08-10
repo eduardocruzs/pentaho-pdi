@@ -38,3 +38,4 @@ USER pentaho
 #ENTRYPOINT ["/opt/pentaho/data-integration/kitchen.sh"]
 #ENTRYPOINT ["/opt/pentaho/data-integration/pan.sh"]
 ENTRYPOINT ["/bin/bash"]
+#Versão 9.2
