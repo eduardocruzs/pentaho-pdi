@@ -18,7 +18,7 @@ ENV PENTAHO_JAVA_HOME /usr/local/openjdk-8/
 # Criando diretorio
 RUN mkdir ${PENTAHO_HOME} /input/ /output/; useradd -s /bin/bash -d ${PENTAHO_HOME} pentaho; chown pentaho:pentaho ${PENTAHO_HOME} /input/ /output/ \
 # Download Pentaho
-&& wget --progress=dot:giga https://sourceforge.net/projects/pentaho/files/Pentaho%209.1/client-tools/pdi-ce-9.1.0.0-324.zip/download -O /tmp/pentaho-pdi.zip \
+&& wget --progress=dot:giga https://sourceforge.net/projects/pentaho/files/Pentaho-9.2/client-tools/pdi-ce-9.2.0.0-290.zip/download -O /tmp/pentaho-pdi.zip \
 && /usr/bin/unzip -q /tmp/pentaho-pdi.zip -d  $PENTAHO_HOME \
 && rm -f /tmp/pentaho-pdi.zip \
 # Ajustando permissões 
